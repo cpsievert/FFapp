@@ -14,7 +14,12 @@ shinyServer(function(input, output) {
 #       currentPos <- input$
 #     } else currentPos <- "qb"
     currentPos <- input$position
-    dat1 <- subset(dat, category == currentPos)
+    if (!is.null(input$ppr)){
+      if (input$ppr) {
+        showPPR <- "Y"
+      } else showPPR <- "N"
+    } else showPPR <- "N"
+    dat1 <- subset(dat, category == currentPos & ppr == showPPR)
     p1 <- rPlot(ave~stddev, data=dat1, type='point',
             tooltip="function(item){return item.player +'\n' + item.matchup +'\n' + item.best +'\n' + item.worst +'\n' + item.category}")
     m <- max(dat1$ave)

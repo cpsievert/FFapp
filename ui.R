@@ -8,7 +8,11 @@ shinyUI(pageWithSidebar(
     selectInput(inputId = "position",
                 label = "Select a category/position of interest",
                 choices = pos,
-                selected = pos[1])
+                selected = pos[1]),
+    conditionalPanel(
+      condition = "input.position == 'rb' || 'wr' || 'te' || 'flex' || 'qb-flex'",
+      checkboxInput("ppr", "Show PPR rankings", FALSE)
+    )
   ),
   
   mainPanel(
